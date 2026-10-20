@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{entry.data.title}</title>
+  </head>
+  <body>
+    <main style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+      <a href="/">← Back Home</a>
+      <h1>{entry.data.title}</h1>
+      <p><em>Category: {entry.data.category} | Published: {entry.data.pubDate.toLocaleDateString()}</em></p>
+      <hr />
+      <Content />
+    </main>
+  </body>
+</html>
