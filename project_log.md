@@ -32,6 +32,7 @@
 - **Linux Terminal & Shell Commands:**
   * **`source ~/.bashrc`:** Reloads and applies changes made to the shell configuration file immediately in the current terminal session without needing to restart the window.
   * **Piping to bash (`curl ... | bash`):** Downloads and executes shell setup scripts (requires trailing `| bash`).
+  * **Terminal Prompt Customization (`PS1`):** Custom functions can be added to `~/.bashrc` to append active Git branch names directly to the prompt path for enhanced situational awareness.
 
 ### Troubleshooting & Git Standards
 - **WSL2 DNS Resolution Fix:**
@@ -46,6 +47,9 @@
 - **Cloudflare Deployment Engine Alignments:**
   * Fixed `EBADENGINE` warnings by upgrading runtime targeting to Node 22 (`NODE_VERSION = 22` in Cloudflare dashboard and `.nvmrc`).
   * Cloudflare Pages automatically generates branch preview builds for non-main branches and triggers production deployments on `main` merges.
+- **Astro 5 Content Layer Architecture:**
+  * Schema definition lives at `src/content.config.ts` using the Content Layer API (`defineCollection`, `zod`, and `glob` loaders).
+  * Static page generation uses dynamic routes (`src/pages/docs/[id].astro`), `getStaticPaths()`, and `render(entry)` to convert Markdown into HTML components at build time.
 
 ---
 
@@ -66,7 +70,13 @@
   - [x] Aligned Node runtime environment variable (`NODE_VERSION = 22`).
   - [x] Verified automated preview and production build deployments.
   - [x] Merged feature branch PR into `main` and moved Ticket 2 to **Done**.
-
+- [x] **Ticket 3 Completed:**
+  - [x] Created feature branch for content schema implementation.
+  - [x] Defined Zod-validated Content Collection schema in `src/content.config.ts`.
+  - [x] Added sample Markdown article (`wsl2-networking-dns.md`).
+  - [x] Configured dynamic page layout with `getStaticPaths()` in `src/pages/docs/[id].astro`.
+  - [x] Verified local build compilation (`npm run build`) and Cloudflare preview build.
+  - [x] Merged feature branch PR into `main` and moved Ticket 3 to **Done**.
 ---
 
 ## 4. Next Steps (Ticket 3 Checklist)
@@ -76,3 +86,11 @@
 3. [ ] Create sample knowledge base Markdown/MDX entries (e.g., architecture, Linux networking, Cloudflare Edge).
 4. [ ] Build a dynamic content route (`src/pages/knowledge/[...slug].astro`) to render content dynamically.
 5. [ ] Push feature branch, open PR, verify Cloudflare preview build, and merge into `main`.
+
+## 4. Next Steps (Ticket 4 Checklist)
+
+1. [ ] Create feature branch: `git checkout -b feature/ticket-4-ui-layout-styling`.
+2. [ ] Integrate Tailwind CSS / styling system for layout consistency.
+3. [ ] Create reusable layout wrappers (`BaseLayout.astro`, `Header.astro`, `Footer.astro`).
+4. [ ] Build article listing/navigation view on the homepage (`src/pages/index.astro`).
+5. [ ] Verify preview build on Cloudflare, open PR, and merge into `main`.
